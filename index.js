@@ -61,7 +61,7 @@ function request_URL(sender,url,txt)
                                                                 let send=info.first_name+" "+info.last_name
                                                                 console.log(send)
                                                                 console.log('dan dan')
- 								let text=send+"!\n I am bot. I am saying as you say:\n"+txt+"\nhttps://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
+ 								let text=send+"!\n I am bot. I am saying as you say:\n"+txt
 						                sendText(sender,text)
                                                         }
                                                 }
@@ -73,7 +73,20 @@ console.log(send)
 
 function sendText(sender,text)
 {
-	let messageData={text:text}
+
+
+let imageurl= "https://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
+let es={title:"Do you wanna Graduation toy", subtitle :text, image_url:imageurl}
+let l={template_type: 'generic',elements:es}
+
+let img={type:'template',payload:l}
+
+let att={attachment:img}
+
+
+
+//	let messageData={text:text}
+	let messageData=att
 	request(
 	{
 		url:'https://graph.facebook.com/v2.6/me/messages',
