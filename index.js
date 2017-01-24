@@ -41,10 +41,10 @@ app.post('/webhook/',function(req,res)
 			{
   				if (!error && response.statusCode == 200) {
        					  let info = JSON.parse(body)
-   			         	  console.log(info)
+   			         	  iif(info)
 					  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
   					}
-			})
+		})
 		  let text=sendername+"\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
