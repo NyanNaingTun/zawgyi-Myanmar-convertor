@@ -37,6 +37,7 @@ app.post('/webhook/',function(req,res)
 			var request = require('request')
 			var sendername=""
 			var url ='https://graph.facebook.com/v2.6/'+sender+'?fields=first_name,last_name&access_token='+token
+			console.log(url)
 			request(url, function (error, response, body) 
 			{
   				if (!error && response.statusCode == 200) {
