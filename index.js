@@ -122,6 +122,12 @@ console.log("e="+es)
 
 	})
 }
+app.get('/action',function(req,res){
+	let config = require('./create.json')
+	console.log(config.led)
+	req.send(config)
+
+})
 app.listen(app.get('port'),function(){
 	console.log("running: port")
 })
