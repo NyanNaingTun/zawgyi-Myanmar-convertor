@@ -38,16 +38,16 @@ app.post('/webhook/',function(req,res)
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
 				
 			
-                  sendername=request_URL(url)		
+                  sendername=request_URL(url,event.message.text)		
 		
-		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
-		  sendText(sender,text)
+   //		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
+//		  sendText(sender,text)
 		}
 	}
 
 	res.sendStatus(200)
 })
-function request_URL(url)
+function request_URL(url,txt)
 {
     let send=""
     request(url,function(error,response,body)
@@ -61,6 +61,8 @@ function request_URL(url)
                                                                 send=info.first_name+" "+info.last_name
                                                                 console.log(send)
                                                                 console.log('dan dan')
+ 								let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.txt
+						                sendText(sender,text)
                                                         }
                                                 }
 
