@@ -39,9 +39,9 @@ app.post('/webhook/',function(req,res)
 			console.log(url)
 			request(url, function (error, response, body) 
 			{
-  				if (!error && response.statusCode == 200) {
+	  				if (!error && response.statusCode == 200) {
        					  let info = JSON.parse(body)
-   			         	  iif(info)
+   			         	  if(info.first_name || info.last_name)
 					  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
   					}
 		})
