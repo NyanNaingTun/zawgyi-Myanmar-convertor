@@ -34,7 +34,7 @@ app.post('/webhook/',function(req,res)
 
 
 			let request = require('request')
-			let sendername=""
+			let sendername=event.sender.id
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
 			console.log(url)
 			request(url, function (error, response, body) 
