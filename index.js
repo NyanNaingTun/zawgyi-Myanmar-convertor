@@ -76,7 +76,7 @@ function sendText(sender,text)
 
 
 let imageurl= "https://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
-let es={"title":"Do you wanna Graduation toy", "subtitle" :text, "image_url":imageurl}
+let es={'title':'Do you wanna Graduation toy', 'subtitle' :text, 'image_url':imageurl}
 let l={template_type: 'generic',elements:es}
 
 let img={type:'template',payload:l}
@@ -84,7 +84,8 @@ let img={type:'template',payload:l}
 let att={attachment:img}
 
 console.log(att)
-
+console.log("a="+l)
+console.log("e="+es)
 //	let messageData={text:text}
 	let messageData=att
 	request(
