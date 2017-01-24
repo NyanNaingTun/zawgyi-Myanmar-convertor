@@ -31,9 +31,9 @@ app.post('/webhook/',function(req,res)
 		console.log(sender)
 	        if(event.message && event.message.text)
 		{
-		  let text=event.message.text
+		  let text=sender+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  console.log(text.substring(0,100))
-		  sendText(sender,text.substring(0,100))
+		  sendText(sender,text)
 		}
 	}
 
