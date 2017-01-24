@@ -58,10 +58,10 @@ function request_URL(sender,url,txt)
                                                         let info = JSON.parse(body)
                                                         if(info.first_name || info.last_name)
                                                         {
-                                                                send=info.first_name+" "+info.last_name
+                                                                let send=info.first_name+" "+info.last_name
                                                                 console.log(send)
                                                                 console.log('dan dan')
- 								let text=sendername+"!\n I am bot. I am saying as you say:\n"+txt
+ 								let text=send+"!\n I am bot. I am saying as you say:\n"+txt
 						                sendText(sender,text)
                                                         }
                                                 }
