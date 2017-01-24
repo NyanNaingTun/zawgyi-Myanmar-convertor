@@ -7,7 +7,7 @@ const app=express()
 app.set('port',(process.env.PORT || 5000))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-let token="EAAMZCuJeEMZBgBAO7tdtSO7ZCGTE8eZCTQTCEzycc3D2qzwDtSqhcqRLVgYQZC4ByZAi4oyJZApwZAfPpuxN7QzEVNmuZBoeKR7HVpTIIFTKWroDjnMfKfJWVaW1kmmLfY26LmDD9AVdMm9YGK8da5btQ1o4oy5ZAZBwXhZBVmjYVc8wXAZDZD"
+const token="EAAMZCuJeEMZBgBAO7tdtSO7ZCGTE8eZCTQTCEzycc3D2qzwDtSqhcqRLVgYQZC4ByZAi4oyJZApwZAfPpuxN7QzEVNmuZBoeKR7HVpTIIFTKWroDjnMfKfJWVaW1kmmLfY26LmDD9AVdMm9YGK8da5btQ1o4oy5ZAZBwXhZBVmjYVc8wXAZDZD"
 app.get('/',function(req,res){
 	res.send("Hi I am a chatbot")
 })
@@ -42,7 +42,7 @@ function sendText(sender,text)
 	request(
 	{
 		url:"https://graph.facebook.com/v2.6/me/messages",
-		qs: {access_token,token},
+		qs: {access_token:token},
 	        method: "POST",
 		json:{
 			recept:{id:sender},
