@@ -45,11 +45,11 @@ function sendText(sender,text)
 	let messageData={text:text}
 	request(
 	{
-		url:"https://graph.facebook.com/v2.6/me/messages",
+		url:'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
-	        method: "POST",
+	        method: 'POST',
 		json:{
-			recept:{id:sender},
+			recipient:{id:sender},
 			message:messageData
 		},function(error,response,body){
 			if(error)
