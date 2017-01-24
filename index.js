@@ -45,7 +45,7 @@ app.post('/webhook/',function(req,res)
 					  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
   					}
 			})
-		  let text=url+"\n I am bot. I am saying as you say:\n"+event.message.text
+		  let text=sendername+"\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
 	}
