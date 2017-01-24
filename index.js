@@ -36,9 +36,11 @@ app.post('/webhook/',function(req,res)
 			let request = require('request')
 			let sendername=event.sender.id
 			console.log(sendername+"upper")
+			let enter=true
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
 			console.log(url)
-			request(url, function (error, response, body) 
+			if(enter){		
+      			request(url, function (error, response, body) 
 			{
 					
                                                 console.log(sendername+"inside")
@@ -50,11 +52,12 @@ app.post('/webhook/',function(req,res)
 						  sendername=info.first_name+" "+info.last_name
 						  console.log(sendername)
 						  console.log('dan dan')
+							enter=false
 						}
 						}
 					
   					
-		})
+		})}
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
