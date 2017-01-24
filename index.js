@@ -29,7 +29,7 @@ app.post('/webhook/',function(req,res)
 		let sender=event.sender.id
 		if(event.message && event.message.text)
 		{
-		  let text=sender+"! \n'I am bot. I am saying as you say:"+event.message.text
+		  let text=event.message.text
 		  sendText(sender,text)
 		}
 	}
