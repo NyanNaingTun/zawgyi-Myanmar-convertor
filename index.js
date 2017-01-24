@@ -28,7 +28,6 @@ app.post('/webhook/',function(req,res)
 	{
 		let event =messaging_events[i]
 		let sender=event.sender.id
-		console.log(sender)
 	        if(event.message && event.message.text)
 		{
 
@@ -42,12 +41,11 @@ app.post('/webhook/',function(req,res)
 			{
   				if (!error && response.statusCode == 200) {
        					 var info = JSON.parse(body)
-			         	 console.log(info)
+   			         	  console.log(info)
 					  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
   					}
 			})
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
-		  console.log(text.substring(0,100))
 		  sendText(sender,text)
 		}
 	}
