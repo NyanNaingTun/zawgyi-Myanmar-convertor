@@ -95,7 +95,22 @@ console.log("e="+es)
 	        method: 'POST',
 		json:{
 			recipient:{id:sender},
-			message:messageData
+			message:
+			{
+				attachment:
+				{
+					type: "template",
+					payload:{
+						template_type : "generic",
+						elements: {
+							"title":"Do you wanna Gradudation Toy",
+							"subtitle":text,
+							 "image_url": imageurl
+						}
+						
+					}
+				}
+			}
 		},function(error,response,body){
 			if(error)
 			{	console.log("sending errror")}
