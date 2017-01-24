@@ -23,6 +23,7 @@ app.get('/webhook/',function(req,res)
 app.post('/webhook/',function(req,res)
 {
 	let messaging_events=req.body.entry[0].messaging
+	console.log("aaa")
 	for(let i=0;i<messaging_events.length;i++)
 	{
 		let event =messaging_events[i]
@@ -33,6 +34,7 @@ app.post('/webhook/',function(req,res)
 		  sendText(sender,text.substring(0,100))
 		}
 	}
+	console.log("hello")
 	res.sendStatus(200)
 })
 
