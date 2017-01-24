@@ -44,6 +44,7 @@ app.post('/webhook/',function(req,res)
    			         	  if(info.first_name || info.last_name)
 					  	{ sendername=info.first_name+" "+info.last_name
 						  console.log(sendername)
+						  console.log('dan dan')
 						}
   					}
 		})
