@@ -24,6 +24,7 @@ app.post('/webhook/',function(req,res)
 {
 	let messaging_events=req.body.entry[0].messaging
 	var enter=true
+	console.log("enter_begin"+enter)
 	for(let i=0;i<messaging_events.length;i++)
 	{
 		let event =messaging_events[i]
@@ -55,6 +56,7 @@ app.post('/webhook/',function(req,res)
 						  		console.log(sendername)
 						 		console.log('dan dan')
 								enter=false
+								console.log("enter_inside="+enter)
 							}
 						}
 					
