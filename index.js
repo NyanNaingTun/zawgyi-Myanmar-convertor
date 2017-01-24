@@ -39,13 +39,19 @@ app.post('/webhook/',function(req,res)
 			console.log(url)
 			request(url, function (error, response, body) 
 			{
-	  				if (!error && response.statusCode == 200) {
-       					  let info = JSON.parse(body)
-   			         	  if(info.first_name || info.last_name)
-					  	{ sendername=info.first_name+" "+info.last_name
+					if(error)
+					{ console.log("error")}
+					else
+					{
+	  					if (!error && response.statusCode == 200) {
+       					 	 let info = JSON.parse(body)
+   			         	  	if(info.first_name || info.last_name)
+					  	{
+						  sendername=info.first_name+" "+info.last_name
 						  console.log(sendername)
 						  console.log('dan dan')
 						}
+					
   					}
 		})
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
