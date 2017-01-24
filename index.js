@@ -40,7 +40,9 @@ app.post('/webhook/',function(req,res)
 			request(url, function (error, response, body) 
 			{
 					if(error)
-					{ console.log("error")}
+					{
+						 console.log("error")
+					}
 					else
 					{
 	  					if (!error && response.statusCode == 200) {
@@ -50,6 +52,7 @@ app.post('/webhook/',function(req,res)
 						  sendername=info.first_name+" "+info.last_name
 						  console.log(sendername)
 						  console.log('dan dan')
+						}
 						}
 					
   					}
