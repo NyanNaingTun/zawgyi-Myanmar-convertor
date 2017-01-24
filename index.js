@@ -35,7 +35,7 @@ app.post('/webhook/',function(req,res)
 
 			let request = require('request')
 			let sendername=""
-			let url ='https://graph.facebook.com/v2.6/'+sender+'?fields=first_name,last_name&access_token='+token
+			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
 			console.log(url)
 			request(url, function (error, response, body) 
 			{
@@ -45,7 +45,7 @@ app.post('/webhook/',function(req,res)
 					  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
   					}
 			})
-		  let text=sender+"!\n I am bot. I am saying as you say:\n"+event.message.text
+		  let text=url+"\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
 	}
