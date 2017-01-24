@@ -86,8 +86,8 @@ let att={attachment:img}
 console.log(att)
 console.log("a="+l)
 console.log("e="+es)
-//	let messageData={text:text}
-	let messageData=att
+	let messageData={text:text}
+//	let messageData=att
 	request(
 	{
 		url:'https://graph.facebook.com/v2.6/me/messages',
@@ -95,8 +95,8 @@ console.log("e="+es)
 	        method: 'POST',
 		json:{
 			recipient:{id:sender},
-			message:
-			{
+			message: messageData
+/*			{
 				attachment:
 				{
 					type: "template",
@@ -110,7 +110,7 @@ console.log("e="+es)
 						
 					}
 				}
-			}
+			}*/
 		},function(error,response,body){
 			if(error)
 			{	console.log("sending errror")}
