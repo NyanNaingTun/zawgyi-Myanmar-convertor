@@ -61,7 +61,7 @@ function request_URL(sender,url,txt)
                                                                 let send=info.first_name+" "+info.last_name
                                                                 console.log(send)
                                                                 console.log('dan dan')
- 								let text=send+"!\n I am bot. I am saying as you say:\n"+txt
+ 								let text=send+"!\n I am bot. I am saying as you say:\n"+txt+"\nhttps://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
 						                sendText(sender,text)
                                                         }
                                                 }
