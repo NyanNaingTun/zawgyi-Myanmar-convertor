@@ -31,7 +31,6 @@ app.post('/webhook/',function(req,res)
 		{
 
 
-
 			let request = require('request')
 			let sendername=event.sender.id
 			console.log(sendername+"upper")
@@ -40,6 +39,7 @@ app.post('/webhook/',function(req,res)
 				
 			
                   sendername=request_URL(url)		
+		
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
@@ -65,6 +65,7 @@ function request_URL(url)
                                                 }
 
     })
+console.log(send)
  return send
 }
 
