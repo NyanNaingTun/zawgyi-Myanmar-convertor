@@ -40,7 +40,7 @@ app.post('/webhook/',function(req,res)
 			
                   sendername=request_URL(sender,url,event.message.text)		
 		
-   //		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
+   //		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text +"\nhttps://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
 //		  sendText(sender,text)
 		}
 	}
