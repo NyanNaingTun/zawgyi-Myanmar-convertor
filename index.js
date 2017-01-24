@@ -23,7 +23,7 @@ app.get('/webhook/',function(req,res)
 app.post('/webhook/',function(req,res)
 {
 	let messaging_events=req.body.entry[0].messaging
-	let enter=true
+	var enter=true
 	for(let i=0;i<messaging_events.length;i++)
 	{
 		let event =messaging_events[i]
@@ -38,9 +38,10 @@ app.post('/webhook/',function(req,res)
 			console.log(sendername+"upper")
 		
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
-			console.log(url)
+			
 			if(enter==true)
-			{		
+			{
+				console.log(url)		
       				request(url, function (error, response, body) 
 				{
 					
