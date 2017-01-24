@@ -83,7 +83,7 @@ let img={type:'template',payload:l}
 
 let att={attachment:img}
 
-
+console.log(att)
 
 //	let messageData={text:text}
 	let messageData=att
