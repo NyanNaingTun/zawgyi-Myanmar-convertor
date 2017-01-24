@@ -38,26 +38,8 @@ app.post('/webhook/',function(req,res)
 			console.log(event.message.text)
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
 				
-      				request(url, function (error, response, body) 
-				{
-					
-                                                console.log(sendername+"inside")
-                      				
-	  					if (!error && response.statusCode == 200) {
-       					 	 	let info = JSON.parse(body)
-   			         	  		if(info.first_name || info.last_name)
-					  		{
-						  		sendername=info.first_name+" "+info.last_name
-						  		console.log(sendername)
-						 		console.log('dan dan')
-							}
-						}
-					
-  					
-				})
-
 			
-		
+                  sendername=request_URL(url)		
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
@@ -65,6 +47,26 @@ app.post('/webhook/',function(req,res)
 
 	res.sendStatus(200)
 })
+function request_URL(url)
+{
+    let send=""
+    request(url,function(error,response,body)
+    {
+	
+
+                                                if (!error && response.statusCode == 200) {
+                                                        let info = JSON.parse(body)
+                                                        if(info.first_name || info.last_name)
+                                                        {
+                                                                send=info.first_name+" "+info.last_name
+                                                                console.log(send)
+                                                                console.log('dan dan')
+                                                        }
+                                                }
+
+    })
+ return send
+}
 
 function sendText(sender,text)
 {
