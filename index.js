@@ -35,13 +35,14 @@ app.post('/webhook/',function(req,res)
 
 
 			var request = require('request')
-			var sendername=sender
+			var sendername=""
 			var url ='https://graph.facebook.com/v2.6/'+sender+'?fields=first_name,last_name&access_token='+token
 			request(url, function (error, response, body) 
 			{
   				if (!error && response.statusCode == 200) {
-       					 var info = JSON.parse(body);
-			         	  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
+       					 var info = JSON.parse(body)
+			         	 console.log(info)
+					  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
   					}
 			})
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
