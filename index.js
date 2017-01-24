@@ -62,6 +62,7 @@ app.post('/webhook/',function(req,res)
 				})
 
 			}
+			console.log("enter="+enter)
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
