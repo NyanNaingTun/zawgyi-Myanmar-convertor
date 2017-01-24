@@ -31,7 +31,20 @@ app.post('/webhook/',function(req,res)
 		console.log(sender)
 	        if(event.message && event.message.text)
 		{
-		  let text=sender+"!\n I am bot. I am saying as you say:\n"+event.message.text
+
+
+
+			var request = require('request')
+			var sendername=sender
+			var url ='https://graph.facebook.com/v2.6/'+sender+'?fields=first_name,last_name&access_token='+token
+			request(url, function (error, response, body) 
+			{
+  				if (!error && response.statusCode == 200) {
+       					 var info = JSON.parse(body);
+			         	  sendername=info.first_name+" "+info.last_name // Show the HTML for the Google homepage.
+  					}
+			})
+		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  console.log(text.substring(0,100))
 		  sendText(sender,text)
 		}
