@@ -28,14 +28,15 @@ app.post('/webhook/',function(req,res)
 	{
 		let event =messaging_events[i]
 		let sender=event.sender.id
-		if(event.message && event.message.text)
+		console.log(sender)
+	        if(event.message && event.message.text)
 		{
 		  let text=event.message.text
+		  console.log(text.substring(0,100))
 		  sendText(sender,text.substring(0,100))
 		}
 	}
-	console.log(sender)
-	console.log(event.message.text)
+
 	res.sendStatus(200)
 })
 
