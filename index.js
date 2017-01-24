@@ -23,8 +23,6 @@ app.get('/webhook/',function(req,res)
 app.post('/webhook/',function(req,res)
 {
 	let messaging_events=req.body.entry[0].messaging
-	var enter=true
-	console.log("enter_begin"+enter)
 	for(let i=0;i<messaging_events.length;i++)
 	{
 		let event =messaging_events[i]
@@ -39,10 +37,7 @@ app.post('/webhook/',function(req,res)
 			console.log(sendername+"upper")
 			console.log(event.message.text)
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
-			
-			if(enter==true)
-			{
-    		/*		console.log(url)		
+				
       				request(url, function (error, response, body) 
 				{
 					
@@ -55,22 +50,20 @@ app.post('/webhook/',function(req,res)
 						  		sendername=info.first_name+" "+info.last_name
 						  		console.log(sendername)
 						 		console.log('dan dan')
-								enter=false
-								console.log("enter_inside="+enter)
 							}
 						}
 					
   					
-				})*/
+				})
 
-			}
-			console.log("enter="+enter)
+			
+		
 		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text
 		  sendText(sender,text)
 		}
 	}
 
-	//res.sendStatus(200)
+	res.sendStatus(200)
 })
 
 function sendText(sender,text)
