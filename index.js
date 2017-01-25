@@ -30,7 +30,7 @@ app.post('/webhook/',function(req,res)
 	        if(event.message && event.message.text)
 		{
 
-		if(event.message.text==="led on"|| event.message==="led off")
+		if(event.message.text==="led on"|| event.message.text==="led off")
 		{
 			var fs = require('fs');
 			if(event.message.text==="led on")
