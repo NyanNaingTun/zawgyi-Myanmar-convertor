@@ -35,11 +35,13 @@ app.post('/webhook/',function(req,res)
 			var fs = require('fs');
 			if(event.message.text==="led on")
 			{
-				fs.writeFile('./c.json', JSON.stringify({ "led":"on" }, null, 4));
+				fs.writeFile('./c.json', JSON.stringify({ "led":"on" }, null, 2));
+				console.log("a is on")
 			}
-			else if(event.message.text==="led off")
+			if(event.message.text==="led off")
 			{
-				 fs.writeFile('./c.json', JSON.stringify({ "led":"off" }, null, 4));
+				 fs.writeFile('./c.json', JSON.stringify({ "led":"off" }, null, 2));
+				 console.log("a is off")
 			}
 			let text="Now "+event.message.text
 			sendText(sender,text)
