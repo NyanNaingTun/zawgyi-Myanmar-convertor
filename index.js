@@ -35,11 +35,11 @@ app.post('/webhook/',function(req,res)
 			var fs = require('fs');
 			if(event.message.text==="led on")
 			{
-				fs.writeFile('./create.json', JSON.stringify({ "led":"on" }, null, 4));
+				fs.writeFile('./c.json', JSON.stringify({ "led":"on" }, null, 4));
 			}
 			else if(event.message.text==="led off")
 			{
-				 fs.writeFile('./create.json', JSON.stringify({ "led":"off" }, null, 4));
+				 fs.writeFile('./c.json', JSON.stringify({ "led":"off" }, null, 4));
 			}
 			let text="Now "+event.message.text
 			sendText(sender,text)
@@ -86,20 +86,7 @@ console.log(send)
 function sendText(sender,text)
 {
 
-
-let imageurl= "https://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
-let es={'title':'Do you wanna Graduation toy', 'subtitle' :text, 'image_url':imageurl}
-let l={template_type: 'generic',elements:es}
-
-let img={type:'template',payload:l}
-
-let att={attachment:img}
-
-console.log(att)
-console.log("a="+l)
-console.log("e="+es)
 	let messageData={text:text}
-//	let messageData=att
 	request(
 	{
 		url:'https://graph.facebook.com/v2.6/me/messages',
@@ -108,21 +95,6 @@ console.log("e="+es)
 		json:{
 			recipient:{id:sender},
 			message: messageData
-/*			{
-				attachment:
-				{
-					type: "template",
-					payload:{
-						template_type : "generic",
-						elements: {
-							"title":"Do you wanna Gradudation Toy",
-							"subtitle":text,
-							 "image_url": imageurl
-						}
-						
-					}
-				}
-			}*/
 		},function(error,response,body){
 			if(error)
 			{	console.log("sending errror")}
@@ -135,7 +107,7 @@ console.log("e="+es)
 	})
 }
 app.get('/action',function(req,res){
-	let config = require('./create.json')
+	let config = require('./c.json')
 	console.log(config.led)
 	res.send(config)
 
