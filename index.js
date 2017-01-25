@@ -4,6 +4,7 @@ const express=require('express')
 const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
+const hello={}
 app.set('port',(process.env.PORT || 5000))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -35,12 +36,14 @@ app.post('/webhook/',function(req,res)
 			var fs = require('fs');
 			if(event.message.text==="led on")
 			{
-				fs.writeFile('./c.json', JSON.stringify({ "led":"on" }, null, 2));
+				hello={"led":"on"}
+				//fs.writeFile('./c.json', JSON.stringify({ "led":"on" }, null, 2));
 				console.log("a is on")
 			}
 			if(event.message.text==="led off")
 			{
-				 fs.writeFile('./c.json', JSON.stringify({ "led":"off" }, null, 2));
+				hello={"led":"off"}
+				// fs.writeFile('./c.json', JSON.stringify({ "led":"off" }, null, 2));
 				 console.log("a is off")
 			}
 			let text="Now "+event.message.text
@@ -109,9 +112,9 @@ function sendText(sender,text)
 	})
 }
 app.get('/action',function(req,res){
-	let config = require('./c.json')
-	console.log(config.led)
-	res.send(config)
+	//let config = require('./c.json')
+	console.log(hello)
+	res.send(hello)
 
 })
 app.listen(app.get('port'),function(){
