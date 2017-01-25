@@ -30,16 +30,19 @@ app.post('/webhook/',function(req,res)
 	        if(event.message && event.message.text)
 		{
 
-
+		if(event.message.text==="led on"|| event.message==="led off")
+		{
+			let text="Now "+event.message.text
+			sendText(sender,text)
+		}
+		else{
 			let request = require('request')
 			let sendername=event.sender.id
 			console.log(sendername+"upper")
 			console.log(event.message.text)
 			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
-				
-			
-                  sendername=request_URL(sender,url,event.message.text)		
-		
+		        sendername=request_URL(sender,url,event.message.text)		
+		  }
    //		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text +"\nhttps://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
 //		  sendText(sender,text)
 		}
