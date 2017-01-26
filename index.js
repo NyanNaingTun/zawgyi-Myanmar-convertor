@@ -30,7 +30,7 @@ app.post('/webhook/',function(req,res)
 		let sender=event.sender.id
 	        if(event.message && event.message.text)
 		{
-			let message=event.mesage.text
+			let message=event.message.text
 			let reply=""
 			if(message.toUpperCase().indexof('avaliable command'.toUpperCase()) >-1)
 			{
