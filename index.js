@@ -31,7 +31,7 @@ app.post('/webhook/',function(req,res)
 		console.log("----------")
 		console.log(event.sender)
 		let sender=event.sender.id
-		conse.log(event.message)
+		console.log(event.message)
 		console.log("----------")
 	        if(event.message && event.message.text)
 		{
