@@ -42,7 +42,7 @@ app.post('/webhook/',function(req,res)
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. help\n7. About\t The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
+				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. help\n7. About\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
 			}
 			else if(message.indexOf('   ')>-1)			{
 //			 var fs = require('fs');
