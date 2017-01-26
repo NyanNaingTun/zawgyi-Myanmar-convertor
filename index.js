@@ -3,6 +3,7 @@
 const express=require('express')
 const bodyParser=require('body-parser')
 const request=require('request')
+const pageid=726290937520808
 const app=express()
 let hello={}
 app.set('port',(process.env.PORT || 5000))
@@ -53,7 +54,7 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"help")
-				reply="First, You must be resgister in my system and then Pass_code for security reason. The system gave you API key and save your Passcode(Refer..1 and 2)After that, you  can add command further,you can request using it from your IOT(Ref:3). In your IOT. you can use get request the following url:\n https://flamelion.herokuapp.com/action?api={api_key}&pc={pass_code}&com={key_command}\n In messager, To send command with value, you message to us like that {key_command} {value}. \n\n For Display list of command. Type \" Avaliable_Command\" " 
+				reply="First, You must be register in our system and then Pass_code for security reason.\n The system gives you API key and save your Passcode(Refer..1 and 2)\nAfter that, you  can add command further,you can request using it from your IOT(Ref:3).\n   In your IOT. you can use get request the following url:\n https://flamelion.herokuapp.com/action?api={api_key}&pc={pass_code}&com={key_command}\n In messager, To send command with value, you message to us like that {key_command} {value}. \n\n For Display List of Commands. Type \" Avaliable_Command\" " 
 			}
 			else if(message.indexOf('ABOUT'.toUpperCase())>-1)
 			{
