@@ -30,39 +30,37 @@ app.post('/webhook/',function(req,res)
 		let sender=event.sender.id
 	        if(event.message && event.message.text)
 		{
-			let message=event.meesage.text
-			let reply=""
-			if(message.toUpperCase().indexof('avaliable command'.toUpperCase()) >-1)
-			{
-				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. List_command\n6. help\n7. About\t The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
-			}
-			else if(message.toUpperCase().indexof('   '.toUpperCase())>-1)			{
-//			 var fs = require('fs');
-//			 let data = JSON.parse(fs.readFileSync('c.json', 'utf8'));
 
-			
-//				fs.writeFile('c.json', JSON.stringify({ "led":"on" }, null, 2));
-			}
-			else if(message.toUpperCase().indexof('help'.toUpperCase())>-1)
+		if(event.message.text==="led on"|| event.message.text==="led off")
+		{
+			var fs = require('fs');
+			if(event.message.text==="led on")
 			{
-				console.log(sender+"-"+"help")
-				reply="First, You must be resgister in my system and then Pass_code for security reason. The system gave you API key and save your Passcode(Refer..1 and 2)After that, you  can add command further,you can request using it from your IOT(Ref:3). In your IOT. you can use get request the following url:\n https://flamelion.herokuapp.com/action?api={api_key}&pc={pass_code}&com={key_command}\n In messager, To send command with value, you message to us like that {key_command} {value}." 
+				hello={"led":"on"}
+				fs.writeFile('./c.json', JSON.stringify({ "led":"on" }, null, 2));
+				console.log("a is on")
 			}
-			else if(message.toUpperCase().indexof('About'.toUpperCase())>-1)
+			if(event.message.text==="led off")
 			{
-				console.log(sender+"-"+"About")
-				reply="We purpose for IOT leaner. Not for Commerical use. Owner.. flamelion Nyan"
+				hello={"led":"off"}
+				 fs.writeFile('./c.json', JSON.stringify({ "led":"off" }, null, 2));
+				 console.log("a is off")
 			}
-			else
-			{
-				console.log(sender+"-"+message)
-				reply="Don't know Command. Type 'help'"
-				
-			}
-			sendText(sender,reply)
+			fs.close()
+			let text="Now "+event.message.text
+			sendText(sender,text)
 		}
-		
+		else{
+			let request = require('request')
+			let sendername=event.sender.id
+			console.log(sendername+"upper")
+			console.log(event.message.text)
+			let url ="https://graph.facebook.com/v2.6/"+event.sender.id+"?fields=first_name,last_name&access_token="+token
+		        sendername=request_URL(sender,url,event.message.text)		
+		  }
+   //		  let text=sendername+"!\n I am bot. I am saying as you say:\n"+event.message.text +"\nhttps://www.facebook.com/gradyteddy/photos/a.460984834108983.1073741827.450752618465538/649100375297427"
+//		  sendText(sender,text)
+		}
 	}
 
 	res.sendStatus(200)
@@ -115,8 +113,8 @@ function sendText(sender,text)
 	})
 }
 app.get('/action',function(req,res){
-	let fs = require('fs')
-       let config = JSON.parse(fs.readFileSync('c.json', 'utf8'));
+	let config = require('./c.json')
+	//console.log(hello)
 	res.send(config)
 
 })
