@@ -55,9 +55,9 @@ app.post('/webhook/',function(req,res)
 				 	var data = db.getData("/"+sender+"/api");
 					var arr=message.split(" ")
 					var index=searchStringInArray("PASS_CODE",arr)
-					console.log(index)
-					if(index=-1 || index==arr.length-1)
-						throw new Error('length_ERROR')
+					console.log(index + arr.lo)
+					if(index==-1 || index== arr.length-1)
+					{	throw new Error('length_ERROR')}
 					var pass=arr[index+1]
 					db.push("/"+sender+"/pass",pass)
 					reply="Your Resgisteration is successly completed. Now you can add command.\nType \"Add_Command\"."
