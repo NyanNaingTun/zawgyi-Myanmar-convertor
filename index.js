@@ -2,6 +2,7 @@
 const JsonDB = require('node-json-db')
 let db = new JsonDB("reg", true, false);
 const express=require('express')
+const speakeasy = require('speakeasy');
 const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
@@ -46,7 +47,7 @@ app.post('/webhook/',function(req,res)
 			{
 				var token=generatetoken()
 				db.push("/"+sender+"/api",token)
-				reply="Your API token is "+token+"\n\n Next step, You must be define your own pass code. Type \" Pass_code {key_code} \"."
+				reply="Your API token is "+token+"\n\n Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
 			}
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
 			{
@@ -106,7 +107,7 @@ function request_URL(sender,url,txt)
 
     })
 console.log(send)
- return send
+ return speakeasy.generateSecret({length: 20});
 }
 
 function sendText(sender,text)
