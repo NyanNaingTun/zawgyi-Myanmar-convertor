@@ -1,5 +1,5 @@
 'use strict'
-constJsonDB = require('node-json-db')
+const JsonDB = require('node-json-db')
 let db = new JsonDB("myDataBase", true, false);
 const express=require('express')
 const bodyParser=require('body-parser')
