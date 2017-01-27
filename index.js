@@ -82,11 +82,11 @@ app.post('/webhook/',function(req,res)
 					command=command.toUpperCase()
                 
 		                         var command= db.getData("/"+sender+"/command/"+command);
-                			console.log(command)
+                			console.log("aaaadbcd"+command)
 		                       	var arr=Object.keys(command);
 					reply=api+"\n";
 					reply=reply+pas+"\n"
-					reply=reply+arr[0]		
+					reply=reply+arr.length		
 
                                 } catch(error) {
 
