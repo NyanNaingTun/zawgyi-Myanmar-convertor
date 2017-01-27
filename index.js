@@ -55,6 +55,7 @@ app.post('/webhook/',function(req,res)
 				 	var data = db.getData("/"+sender+"/api");
 					var arr=message.split(" ")
 					var index=searchStringInArray("PASS_CODE",arr)
+					console.log(index)
 					if(index=-1 || index==arr.length-1)
 						throw new Error('length_ERROR')
 					var pass=arr[index+1]
@@ -158,7 +159,7 @@ function searchStringInArray (str, strArray) {
     for (var j=0; j<strArray.length; j++) {
 	var str1=str.toUpperCase()
 	var str2=strArray[j].toUpperCase()
-        if (str2.match(str1)) return j;
+        if (str2===str1) return j;
     }
     return -1;
 }
