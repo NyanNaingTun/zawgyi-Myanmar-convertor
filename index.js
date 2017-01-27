@@ -33,16 +33,10 @@ app.post('/webhook/',function(req,res)
 		{
 			let message=event.message.text
 			let reply=""
-		console.log("ss----------")
-
-			                console.log(event)
-		console.log("--------------")
-                console.log(event.sender)
-		console.log("---------------")
-                let sender=event.sender.id
-                console.log(event.message)
-                console.log("ee----------")
+                        let sender=event.sender.id
 			message=message.toUpperCase()
+		    if(event.message.is_echo!=true)
+		    {
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
@@ -71,6 +65,9 @@ app.post('/webhook/',function(req,res)
 				reply="Don't know Command. Type 'help'"
 				
 			}
+                     }
+	             else
+			{reply=event.message.text}
 			sendText(sender,reply)
 		}
 		
