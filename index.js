@@ -84,7 +84,7 @@ app.post('/webhook/',function(req,res)
 })
 function generatetoken()
 {
-	return  speakeasy.generateSecret({length: 20});
+	return  speakeasy.generateSecret({length: 20}).base32;
 }
 function request_URL(sender,url,txt)
 {
