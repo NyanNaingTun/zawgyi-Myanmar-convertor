@@ -69,6 +69,33 @@ app.post('/webhook/',function(req,res)
                       				
 			  }
 			}
+			else if(message.indexOf('SHOW_IOT_URL')>-1)
+			{
+				        try {
+                                        var api= db.getData("/"+sender+"/api");
+                                         var pas = db.getData("/"+sender+"/pass");
+                                        var arr=message.split(" ")
+                                        var index=searchStringInArray("SHOW_IOT_URL",arr)
+                                        if(index==-1 || index== arr.length-1)
+                                        {       throw new Error('length_ERROR')}
+                                        var command=arr[index+1]
+					command=command.toUpperCase()
+                                         var command= db.getData("/"+sender+"/command/"+command);
+                                       	var arr=Object.keys(command);
+					reply=api+"\n";
+					reply=reply+pas+"\n"
+					reply=reply+arr[0]		
+
+                                } catch(error) {
+
+                                        if(error.name==="DataError"){
+                                                reply="Your {key_command} is not found.\n Please Try \"Add_Command {no_space_KeyCommnd}\""}
+                                        else if(error.message==="length_ERROR"){
+                                                reply="You type wrong format.Please Type \"Add_Command {no_space_KeyCommnd}\"."}
+
+                          }
+				
+			}
 			 else if(message.indexOf('KEY_LIST')>-1)
                         {
 				try{
@@ -76,7 +103,7 @@ app.post('/webhook/',function(req,res)
 					var arr=Object.keys(data); 
 					for(var j=0;j<arr.length;j++)
 					{
-						reply+=(j+1)+". "+arr[j]+" {value}."
+						reply+=(j+1)+". "+arr[j]+" {value}\n"
 					}
 					reply+="\n The upper instruction you can send from Message to active your IOT"
 				   }catch(error) {
@@ -91,7 +118,7 @@ app.post('/webhook/',function(req,res)
                         {
                               try {
                                         var data = db.getData("/"+sender+"/api");
-					var data = db.getData("/"+sender+"/pass");
+					 data = db.getData("/"+sender+"/pass");
 					var arr=message.split(" ")
                                         var index=searchStringInArray("ADD_COMMAND",arr)
                                         if(index==-1 || index== arr.length-1)
