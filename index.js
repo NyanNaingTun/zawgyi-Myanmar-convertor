@@ -81,9 +81,9 @@ app.post('/webhook/',function(req,res)
                                         var command=arr[index+1]
 					command=command.toUpperCase()
                 
-		                         var command= db.getData("/"+sender+"/command/"+command);
-                			console.log("aaaadbcd"+command)
-		                       	var arr=Object.keys(command);
+		                         var comd= db.getData("/"+sender+"/command/"+command);
+                			console.log("aaaadbcd"+comd+"-===")
+		                       	var arr=Object.keys(comd);
 					reply=api+"\n";
 					reply=reply+pas+"\n"
 					reply=reply+arr.length		
