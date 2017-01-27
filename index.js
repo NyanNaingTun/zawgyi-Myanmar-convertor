@@ -74,7 +74,11 @@ app.post('/webhook/',function(req,res)
 				try{
 					var data = db.getData("/"+sender+"/command");
 					var arr=Object.keys(data); 
-					reply="hello"+arr;
+					for(var j=0;j<arr.length;j++)
+					{
+						reply+=(i+1)+". "+arr[i]+" {value}."
+					}
+					reply+="\n The upper instruction you can send from Message to active your IOT"
 				   }catch(error) {
 
                                         if(error.name==="DataError"){
