@@ -49,6 +49,26 @@ app.post('/webhook/',function(req,res)
 				db.push("/"+sender+"/api",token)
 				reply="Your API token is "+token+"\n\n Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
 			}
+			else if(message.indexOf('PASS_CODE')>-1)
+                        {
+                              try {
+				 	var data = db.getData("/"+sender+"/api");
+					var arr=message.split(" ")
+					var index=searchStringInArray("PASS_CODE",arr)
+					if(index=-1 || index==arr.length-1)
+						throw new Erro('length_ERROR')
+					var pass=arr[index+1]
+					db.push("/"+sender+"/pass",pass)
+					reply="Your Resgisteration is successly completed. Now you can add command.\nType \"Add_Command\"."
+					reply=reply+"\n\n[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
+				} catch(error) {
+					if(error.name==="DataError"){
+   				 		reply="You havn't register yet.\nPlease Type \"Register\"."}
+					else if(error.message==="length_ERROR"){
+						reply="You type wrong format.Please Type \"Pass_code {no_space_pass_key}\"."}
+                      	
+			  }
+			}
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"help")
@@ -132,6 +152,14 @@ function sendText(sender,text)
 		}
 
 	})
+}
+function searchStringInArray (str, strArray) {
+    for (var j=0; j<strArray.length; j++) {
+	var str1=str.toUpperCase()
+	var str2=strArray[j].toUpperCase()
+        if (str2.match(str1)) return j;
+    }
+    return -1;
 }
 app.get('/action',function(req,res){
 	let fs = require('fs')
