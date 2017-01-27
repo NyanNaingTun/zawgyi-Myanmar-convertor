@@ -81,7 +81,7 @@ app.post('/webhook/',function(req,res)
                                         var command=arr[index+1]
 					command=command.toUpperCase()
 		                         var comd= db.getData("/"+sender+"/command");
-                			 var arr=Object.keys("comd")
+                			 var arr=Object.keys(comd)
 					 var j=0
 					 for(j=0;j<arr.length;j++)
                                         {
@@ -91,7 +91,7 @@ app.post('/webhook/',function(req,res)
 						
                                         }
 					reply="https://flamelion.herokuapp.com/action?api="
-					reply=reply+api+"&pass="+pas+"&com="+arr[j];
+					reply=reply+api+"&pas="+pas+"&com="+arr[j];
 
                                 } catch(error) {
 
