@@ -29,8 +29,6 @@ app.post('/webhook/',function(req,res)
 	for(let i=0;i<messaging_events.length;i++)
 	{
 		let event =messaging_events[i]
-		console.log(event)
-		console.log("ss----------")
 	        if(event.message && event.message.text)
 		{
 			let message=event.message.text
