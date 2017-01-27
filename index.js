@@ -73,8 +73,8 @@ app.post('/webhook/',function(req,res)
                         {
 				try{
 					var data = db.getData("/"+sender+"/command");
-					reply=data
-				
+					var arr=Object.keys(data); 
+					reply="hello"+arr;
 				   }catch(error) {
 
                                         if(error.name==="DataError"){
