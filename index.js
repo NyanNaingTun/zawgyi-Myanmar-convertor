@@ -174,9 +174,10 @@ app.post('/webhook/',function(req,res)
                                         if(index==-1 || index== arr.length-1)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
-                                
+                                	if(command!="" || command!=" ")
+					  {       throw new Error('length_ERROR')}
 					
-				       db.push("/"+sender+"/command[]",{obj:command},true)
+				       db.push("/"+sender+"/command/"+command,"",true)
                                         reply="Your Command  is successfully added. Now, You can send data using \""+command+" {value}\"."
                                 	sendText(sender,reply)   
 				        reply="Request url for your IOT. Type \"Show_IOT_URL "+command+"\"."
@@ -212,7 +213,6 @@ app.post('/webhook/',function(req,res)
                      }
 	             else
 			{reply=event.message.text}
-			db.save();
 			try{
 			var data = db.getData("/");
 			console.log(data)
