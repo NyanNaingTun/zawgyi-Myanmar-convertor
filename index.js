@@ -1,5 +1,6 @@
-                               'use strict'
-
+'use strict'
+constJsonDB = require('node-json-db')
+let db = new JsonDB("myDataBase", true, false);
 const express=require('express')
 const bodyParser=require('body-parser')
 const request=require('request')
@@ -29,20 +30,22 @@ app.post('/webhook/',function(req,res)
 	{
 		let event =messaging_events[i]
 		console.log(event)
-		console.log("----------")
-		console.log(event.sender)
-		let sender=event.sender.id
-		console.log(event.message)
-		console.log("----------")
+		console.log("ss----------")
 	        if(event.message && event.message.text)
 		{
 			let message=event.message.text
 			let reply=""
+			                console.log(event)
+                console.log("----------")
+                console.log(event.sender)
+                let sender=event.sender.id
+                console.log(event.message)
+                console.log("ee----------")
 			message=message.toUpperCase()
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. help\n7. About\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
+				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. Show_IOT_URL {key_command}\n7. help\n8. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
 			}
 			else if(message.indexOf('   ')>-1)			{
 //			 var fs = require('fs');
