@@ -80,7 +80,7 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
 					command=command.toUpperCase()
-                
+                			console.log("------ddd-"+command+"--aa---")
 		                         var comd= db.getData("/"+sender+"/command/"+command);
                 			console.log("aaaadbcd"+comd+"-===")
 		                       	var arr=Object.keys(comd);
