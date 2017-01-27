@@ -80,13 +80,18 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
 					command=command.toUpperCase()
-                			console.log("------ddd-"+command+"--aa---")
 		                         var comd= db.getData("/"+sender+"/command");
-                			console.log("aaaadbcd"+comd+"-===")
-		                       	var arr=Object.keys(comd);
-					reply=api+"\n";
-					reply=reply+pas+"\n"
-					reply=reply+arr.length		
+                			 var arr=Object.keys("comd")
+					 var j=0
+					 for(j=0;j<arr.length;j++)
+                                        {
+                                                var str=arr[j].toUpperCase()
+						if(str===command)
+							break;
+						
+                                        }
+					reply="https://flamelion.herokuapp.com/action?api="
+					reply=reply+api+"&pass="+pas+"&com="+arr[j];
 
                                 } catch(error) {
 
