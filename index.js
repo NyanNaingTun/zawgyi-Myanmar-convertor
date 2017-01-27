@@ -175,7 +175,7 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
 					console.log(command+"aaaa")
-                                	if(command!="" || command==" ")
+                                	if(command==="" || command===" ")
 					  {       throw new Error('length_ERROR')}
 					
 				       db.push("/"+sender+"/command/"+command,"",true)
