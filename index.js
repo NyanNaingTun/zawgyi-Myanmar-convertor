@@ -181,7 +181,7 @@ app.post('/webhook/',function(req,res)
                                 	sendText(sender,reply)   
 				        reply="Request url for your IOT. Type \"Show_IOT_URL "+command+"\"."
                                 } catch(error) {
-                                      
+                                      console.log(error)
                                         if(error.name==="DataError"){
                                                 reply="You havn't register or passcode yet.\nPlease Type \"Register\" or \"Pass_code\"."}
                                         else if(error.message==="length_ERROR"){
