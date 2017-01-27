@@ -1,10 +1,9 @@
 'use strict'
 const JsonDB = require('node-json-db')
-let db = new JsonDB("myDataBase", true, false);
+let db = new JsonDB("reg", true, false);
 const express=require('express')
 const bodyParser=require('body-parser')
 const request=require('request')
-const pageid=726290937520808
 const app=express()
 let hello={}
 app.set('port',(process.env.PORT || 5000))
@@ -31,6 +30,7 @@ app.post('/webhook/',function(req,res)
 		let event =messaging_events[i]
 	        if(event.message && event.message.text)
 		{
+			db.reload();
 			let message=event.message.text
 			let reply=""
                         let sender=event.sender.id
@@ -42,12 +42,11 @@ app.post('/webhook/',function(req,res)
 				console.log(sender +"-"+"type help")		
 				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. Show_IOT_URL {key_command}\n7. help\n8. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
 			}
-			else if(message.indexOf('   ')>-1)			{
-//			 var fs = require('fs');
-//			 let data = JSON.parse(fs.readFileSync('c.json', 'utf8'));
-
-			
-//				fs.writeFile('c.json', JSON.stringify({ "led":"on" }, null, 2));
+			else if(message.indexOf('REGISTER')>-1)
+			{
+				var token=generatetoken()
+				db.push("/"+sender+"/api",token)
+				reply="Your API token is "+token+"\n\n Next step, You must be define your own pass code. Type \" Pass_code {key_code} \"."
 			}
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
 			{
@@ -68,6 +67,13 @@ app.post('/webhook/',function(req,res)
                      }
 	             else
 			{reply=event.message.text}
+			db.save();
+			try{
+			var data = db.getData("/");
+			console.log(data)
+			}catch(error) {
+			    console.error(error);
+			}
 			sendText(sender,reply)
 		}
 		
@@ -75,6 +81,10 @@ app.post('/webhook/',function(req,res)
 
 	res.sendStatus(200)
 })
+function generatetoken()
+{
+	return "abcdef"
+}
 function request_URL(sender,url,txt)
 {
     let send=""
