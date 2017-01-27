@@ -124,6 +124,7 @@ app.post('/webhook/',function(req,res)
 			 else if(message.indexOf('ADD_COMMAND')>-1)
                         {
                               try {
+
                                         var data = db.getData("/"+sender+"/api");
 					 data = db.getData("/"+sender+"/pass");
 					var arr=message.split(" ")
