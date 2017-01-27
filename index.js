@@ -102,13 +102,13 @@ app.post('/webhook/',function(req,res)
 
                           }
 			}
-			else if(message.indexOf('Remove_command')>-1)
+			else if(message.indexOf('REMOVE_COMMAND')>-1)
                         {
                                         try {
                                         var api= db.getData("/"+sender+"/api");
                                          var pas = db.getData("/"+sender+"/pass");
                                         var arr=message.split(" ")
-                                        var index=searchStringInArray("Remove_command",arr)
+                                        var index=searchStringInArray("REMOVE_COMMAND",arr)
                                         if(index==-1 || index== arr.length-1)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
