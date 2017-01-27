@@ -84,7 +84,7 @@ app.post('/webhook/',function(req,res)
 })
 function generatetoken()
 {
-	return "abcdef"
+	return  speakeasy.generateSecret({length: 20});
 }
 function request_URL(sender,url,txt)
 {
@@ -107,7 +107,7 @@ function request_URL(sender,url,txt)
 
     })
 console.log(send)
- return speakeasy.generateSecret({length: 20});
+ return send
 }
 
 function sendText(sender,text)
