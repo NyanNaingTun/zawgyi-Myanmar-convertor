@@ -41,8 +41,7 @@ app.post('/webhook/',function(req,res)
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. Show_IOT_URL {key_command}\n7. help\n8. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."
-			}
+				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. Show_IOT_URL {key_command}\n7. help\n8. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
 			else if(message.indexOf('REGISTER')>-1)
 			{
 				var token=generatetoken()
@@ -55,15 +54,14 @@ app.post('/webhook/',function(req,res)
 				 	var data = db.getData("/"+sender+"/api");
 					var arr=message.split(" ")
 					var index=searchStringInArray("PASS_CODE",arr)
-					console.log(index + arr.lo)
 					if(index==-1 || index== arr.length-1)
 					{	throw new Error('length_ERROR')}
 					var pass=arr[index+1]
 					db.push("/"+sender+"/pass",pass)
-					reply="Your Resgisteration is successly completed. Now you can add command.\nType \"Add_Command\"."
+					reply="Your Registration is successly completed. Now you can add command.\nType \"Add_Command\"."
 					reply=reply+"\n\n[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
 				} catch(error) {
-					reply="aaa"
+				
 					if(error.name==="DataError"){
    				 		reply="You havn't register yet.\nPlease Type \"Register\"."}
 					else if(error.message==="length_ERROR"){
@@ -71,11 +69,38 @@ app.post('/webhook/',function(req,res)
                       				
 			  }
 			}
+			 else if(message.indexOf('ADD_COMMAND')>-1)
+                        {
+                              try {
+                                        var data = db.getData("/"+sender+"/api");
+					var data = db.getData("/"+sender+"/pass");
+					var arr=message.split(" ")
+                                        var index=searchStringInArray("ADD_COMMAND",arr)
+                                        if(index==-1 || index== arr.length-1)
+                                        {       throw new Error('length_ERROR')}
+                                        var command=arr[index+1]
+                                        db.push("/"+sender+"/command/"+command,"")
+                                        reply="Your Command  is successfully added. Now, You can send data using \""+command+" {value}\"."
+                                	sendText(sender,reply)   
+				        reply="Request url for your IOT. Type \"Show_IOT_URL "+command+"\"."
+                                } catch(error) {
+                                      
+                                        if(error.name==="DataError"){
+                                                reply="You havn't register or passcode yet.\nPlease Type \"Register\" or \"Passcode\"."}
+                                        else if(error.message==="length_ERROR"){
+                                                reply="You type wrong format.Please Type \"Add_Command {no_space_KeyCommnd}\"."}
+
+                          }
+                        }
+
+
+
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"help")
 				reply="First, You must be register in our system and then Pass_code for security reason.\n The system gives you API key and save your Passcode(Refer..1 and 2)\nAfter that, you  can add command further,you can request using it from your IOT(Ref:3).\n   In your IOT. you can use get request the following url:\n https://flamelion.herokuapp.com/action?api={api_key}&pc={pass_code}&com={key_command}\n In messager, To send command with value, you message to us like that {key_command} {value}. \n\n For Display List of Commands. Type \" Command_List \" " 
 			}
+
 			else if(message.indexOf('ABOUT'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"About")
