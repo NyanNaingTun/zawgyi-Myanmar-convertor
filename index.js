@@ -175,9 +175,8 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
                                 
-					var js=JSON.stringify("{"+command+":\"\"}")
-					console.log(js)
-				       db.push("/"+sender+"/command[]",js,true)
+					
+				       db.push("/"+sender+"/command[]",{obj:command},true)
                                         reply="Your Command  is successfully added. Now, You can send data using \""+command+" {value}\"."
                                 	sendText(sender,reply)   
 				        reply="Request url for your IOT. Type \"Show_IOT_URL "+command+"\"."
