@@ -71,8 +71,16 @@ app.post('/webhook/',function(req,res)
 			}
 			 else if(message.indexOf('KEY_LIST')>-1)
                         {
-				var data = db.getData("/"+sender+"/command");
-				reply=data
+				try{
+					var data = db.getData("/"+sender+"/command");
+					reply=data
+				
+				   }catch(error) {
+
+                                        if(error.name==="DataError"){
+                                                reply="Your Key list is empty."}
+                          }
+
 
 			}
 			 else if(message.indexOf('ADD_COMMAND')>-1)
