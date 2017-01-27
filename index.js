@@ -62,11 +62,12 @@ app.post('/webhook/',function(req,res)
 					reply="Your Resgisteration is successly completed. Now you can add command.\nType \"Add_Command\"."
 					reply=reply+"\n\n[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
 				} catch(error) {
+					reply="aaa"
 					if(error.name==="DataError"){
    				 		reply="You havn't register yet.\nPlease Type \"Register\"."}
 					else if(error.message==="length_ERROR"){
 						reply="You type wrong format.Please Type \"Pass_code {no_space_pass_key}\"."}
-                      	
+                      				
 			  }
 			}
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
