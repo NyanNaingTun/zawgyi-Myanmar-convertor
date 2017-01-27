@@ -80,8 +80,10 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
 					command=command.toUpperCase()
-                                         var command= db.getData("/"+sender+"/command/"+command);
-                                       	var arr=Object.keys(command);
+                
+		                         var command= db.getData("/"+sender+"/command/"+command);
+                			console.log(command)
+		                       	var arr=Object.keys(command);
 					reply=api+"\n";
 					reply=reply+pas+"\n"
 					reply=reply+arr[0]		
