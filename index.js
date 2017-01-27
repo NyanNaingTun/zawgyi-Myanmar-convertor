@@ -41,7 +41,7 @@ app.post('/webhook/',function(req,res)
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6. Show_IOT_URL {key_command}\n7. help\n8. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
+				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. help\n9. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
 			else if(message.indexOf('REGISTER')>-1)
 			{
 				var token=generatetoken()
@@ -69,7 +69,7 @@ app.post('/webhook/',function(req,res)
                       				
 			  }
 			}
-			 else if(message.indexOf('COMMAND_LIST')>-1)
+			 else if(message.indexOf('KEY_LIST')>-1)
                         {
 				var data = db.getData("/"+sender+"/command");
 				reply=data
