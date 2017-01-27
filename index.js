@@ -69,6 +69,12 @@ app.post('/webhook/',function(req,res)
                       				
 			  }
 			}
+			 else if(message.indexOf('COMMAND_LIST')>-1)
+                        {
+				var data = db.getData("/"+sender+"/command");
+				reply=data
+
+			}
 			 else if(message.indexOf('ADD_COMMAND')>-1)
                         {
                               try {
@@ -86,7 +92,7 @@ app.post('/webhook/',function(req,res)
                                 } catch(error) {
                                       
                                         if(error.name==="DataError"){
-                                                reply="You havn't register or passcode yet.\nPlease Type \"Register\" or \"Passcode\"."}
+                                                reply="You havn't register or passcode yet.\nPlease Type \"Register\" or \"Pass_code\"."}
                                         else if(error.message==="length_ERROR"){
                                                 reply="You type wrong format.Please Type \"Add_Command {no_space_KeyCommnd}\"."}
 
