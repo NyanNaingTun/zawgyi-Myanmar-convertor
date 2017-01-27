@@ -101,6 +101,47 @@ app.post('/webhook/',function(req,res)
                                                 reply="You type wrong format.Please Type \"Add_Command {no_space_KeyCommnd}\"."}
 
                           }
+			}
+			else if(message.indexOf('Remove_command')>-1)
+                        {
+                                        try {
+                                        var api= db.getData("/"+sender+"/api");
+                                         var pas = db.getData("/"+sender+"/pass");
+                                        var arr=message.split(" ")
+                                        var index=searchStringInArray("Remove_command",arr)
+                                        if(index==-1 || index== arr.length-1)
+                                        {       throw new Error('length_ERROR')}
+                                        var command=arr[index+1]
+                                        command=command.toUpperCase()
+                                         var comd= db.getData("/"+sender+"/command");
+                                         var arr=Object.keys(comd)
+                                         var j=0
+                                         for(j=0;j<arr.length;j++)
+                                        {
+                                                var str=arr[j].toUpperCase()
+                                                if(str===command)
+                                                        break;
+
+                                        }
+					if(j!=arr.length)
+					{
+							db.delete("/"+sender+"/command/"+arr[j]);
+							reply="Your key_command is deleted. Type \'Key_List\' to see all Key list you created"
+					}
+					else
+					{
+						reply="Your  key_command is not found.Type \'Key_List\' to see all Key list you created"
+					}
+
+                                } catch(error) {
+
+                                        if(error.name==="DataError"){
+                                                reply="Your {key_command} is not found.\n Please Try \"Add_Command {no_space_KeyCommnd}\""}
+                                        else if(error.message==="length_ERROR"){
+                                                reply="You type wrong format.Please Type \"Add_Command {no_space_KeyCommnd}\"."}
+
+                          }
+
 				
 			}
 			 else if(message.indexOf('KEY_LIST')>-1)
