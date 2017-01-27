@@ -175,7 +175,8 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
                                 
-					var js=JSON.parse("{"+command+":\'\'")
+					var js=JSON.parse("{"+command+":\"\"}")
+					console.log(js)
 				       db.push("/"+sender+"/command[]",js,true)
                                         reply="Your Command  is successfully added. Now, You can send data using \""+command+" {value}\"."
                                 	sendText(sender,reply)   
