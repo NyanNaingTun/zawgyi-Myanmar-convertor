@@ -350,8 +350,12 @@ function searchStringInArray (str, strArray) {
 }
 app.get('/action',function(req,res){
 	var datagroup=db.getData("/")
-	
-		res.send(datagroup)	
+//	var value=jsonQuery('people[country=NZ].led', {
+//  datagroup: datagroup
+//})
+	 	
+	//	res.send(datagroup)	
+	res.send(req.query["api"]+"-"+req.query["passkey"])
 
 })
 app.listen(app.get('port'),function(){
