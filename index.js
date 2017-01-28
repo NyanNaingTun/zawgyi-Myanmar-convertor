@@ -219,7 +219,7 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('ABOUT'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"About")
-				reply="I  purpose for IOT learner. Not for Commerical use. Creator.. flamelion Nyan(GH)"
+				reply="I  purpose for IOT learner. Not for Commerical use. Creator.. Flamelion Nyan(Wojoo,GH)\nMBA,B.Sc(BusinessIT,UK),B.C.Sc,D.B.L"
 				  sendText(sender,reply)
 				reply="my profile=\nhttps://www.facebook.com/nyannaingtun7"
 			}
