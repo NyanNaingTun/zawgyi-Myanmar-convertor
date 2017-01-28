@@ -43,7 +43,7 @@ app.post('/webhook/',function(req,res)
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. Help\n9. About\n\n"
+				reply="Avaliable IOT commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. Help\n9. About\n\n"
 				sendText(sender,reply)
 				reply=" The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
 			else if(message.indexOf('REGISTER')>-1)
@@ -117,7 +117,7 @@ app.post('/webhook/',function(req,res)
                         {
                                         try {
                                         var api= db.getData("/group/"+sender+"/api");
-                                         var pas = db.getData("/"+sender+"/pass");
+                                         var pas = db.getData("/group/"+sender+"/pass");
                                         var arr=message.split(" ")
                                         var index=searchStringInArray("REMOVE_COMMAND",arr)
                                         if(index==-1 || index== arr.length-1)
@@ -207,13 +207,21 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('HELP'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"help")
-				reply="First, You must be register in our system and then Pass_code for security reason.\n The system gives you API key and save your Passcode(Refer..1 and 2)\nAfter that, you  can add command further,you can request using it from your IOT(Ref:3).\n   In your IOT. you can use get request the following url:\n https://flamelion.herokuapp.com/action?api={api_key}&pc={pass_code}&com={key_command}\n In messager, To send command with value, you message to us like that {key_command} {value}. \n\n For Display List of Commands. Type \" Command_List \" " 
+				reply="First, You must be register in our system and then Pass_code for security reason.\n The system gives you API key and save your Passcode(Refer..1 and 2)\nAfter that, you  can add command further,you can request using it from your IOT(Ref:3)."  
+				 sendText(sender,reply)
+				reply=" In your IOT. you can use get request the following url:\n https://flamelion.herokuapp.com/action?api={api_key}&pas={pass_code}&com={key_command}"
+				 sendText(sender,reply)
+				reply="In messager, To send command with value, you message to us like that {key_command} {value}."
+				 sendText(sender,reply)
+				reply=" For Display List of Commands. Type \" Command_List \" " 
 			}
 
 			else if(message.indexOf('ABOUT'.toUpperCase())>-1)
 			{
 				console.log(sender+"-"+"About")
-				reply="We purpose for IOT learner. Not for Commerical use. Owner.. flamelion Nyan"
+				reply="I  purpose for IOT learner. Not for Commerical use. Creator.. flamelion Nyan(GH)"
+				  sendText(sender,reply)
+				reply="my profile=\nhttps://www.facebook.com/nyannaingtun7"
 			}
 			else
 			{
