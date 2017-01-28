@@ -349,7 +349,9 @@ function searchStringInArray (str, strArray) {
     return -1;
 }
 app.get('/action',function(req,res){
-		res.send(db.getData("/group"))	
+	var datagroup=db.getData("/")
+	
+		res.send(datagroup)	
 
 })
 app.listen(app.get('port'),function(){
