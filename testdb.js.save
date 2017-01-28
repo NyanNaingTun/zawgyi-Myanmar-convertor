@@ -1,6 +1,6 @@
 'use strict'
 const JsonDB = require('node-json-db')
-let db = new JsonDB("reg", true, false);
+let db = new JsonDB("aaa", true, false);
 const express=require('express')
 const speakeasy = require('speakeasy');
 const bodyParser=require('body-parser')
@@ -25,7 +25,11 @@ app.get('/webhook/',function(req,res)
 })
 app.post('/webhook/',function(req,res)
 {
-	let messaging_events=req.body.entry[0].messaging
+
+		 db.reload();
+
+		
+	/*let messaging_events=req.body.entry[0].messaging
 	for(let i=0;i<messaging_events.length;i++)
 	{
 		let event =messaging_events[i]
@@ -38,20 +42,15 @@ app.post('/webhook/',function(req,res)
 			message=message.toUpperCase()
 		    if(event.message.is_echo!=true)
 		    {
-			
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. Help\n9. About\n\n"
-				sendText(sender,reply)
-				reply=" The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
+				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. help\n9. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
 			else if(message.indexOf('REGISTER')>-1)
 			{
 				var token=generatetoken()
 				db.push("/"+sender+"/api",token)
-				reply="Your API token is "+token
-				sendText(sender,reply)
-				reply=" Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
+				reply="Your API token is "+token+"\n\n Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
 			}
 			else if(message.indexOf('PASS_CODE')>-1)
                         {
@@ -64,8 +63,7 @@ app.post('/webhook/',function(req,res)
 					var pass=arr[index+1]
 					db.push("/"+sender+"/pass",pass)
 					reply="Your Registration is successly completed. Now you can add command.\nType \"Add_Command\"."
-					sendText(sender,reply)
-					reply="[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
+					reply=reply+"\n\n[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
 				} catch(error) {
 				
 					if(error.name==="DataError"){
@@ -75,7 +73,6 @@ app.post('/webhook/',function(req,res)
                       				
 			  }
 			}
-
 			else if(message.indexOf('SHOW_IOT_URL')>-1)
 			{
 				        try {
@@ -216,59 +213,8 @@ app.post('/webhook/',function(req,res)
 			}
 			else
 			{
-				
-				try{
-				  var comd= db.getData("/"+sender+"/command");
-				  var mes=message.split(" ")
-					
-                                         var arr=Object.keys(comd)
-					if(arr.length==0)
-                                         {       throw new Error('no_key_command')}
-	
-					 
-				
-                                         for(j=0;j<arr.length;j++)
-                                        {
-						var k=0
-						for(k=0;k<mes.length;k++)
-						{
-						   var cmm=arr[j].toUpperCase()
-						   var splitedMSG=mes[k].toUpperCase()
-						   if(cmm===splitedMSG)
-							{
-								if(k==mes.length-1)
-									{       throw new Error('no_key_command')}
-								else if( mes[k+1]===" ")
-									{       throw new Error('no_key_command')}
-								else
-								{
-									db.push("/"+sender+"/command/"+cmm,mes[k+1],true)
-									reply="Now Your Data of "+cmm+" is"+db.get("/"+sender+"/command/"+cmm)
-									break;
-								}
-							}
-						
-						}
-                                               
-
-                                        }
-						if(j==arr.length)
-						  {       throw new Error('no_key_found')}
-                                		 
-				 } catch(error) {
-					  if(error.name==="DataError" || error.message==="no_key_command"){
-                                                reply="You havn't key_command yet. Type \"Add_Command {key_command}\" to add new key command."}
-                                        else if(error.message==="length_ERROR"){
-                                                reply="You type wrong format.Please Type \"{key_command} [space] {value}\"."}
-					else if(error.message==="no_key_found")
-						{
-			                                console.log(sender+"-"+message)
-			                                reply="Don't know Command. Type 'help'"
-
-						}
-
-				}
-				
+				console.log(sender+"-"+message)
+				reply="Don't know Command. Type 'help'"
 				
 			}
                      }
@@ -280,12 +226,12 @@ app.post('/webhook/',function(req,res)
 			}catch(error) {
 			    console.error(error);
 			}
-			sendText(sender,reply)
+			//sendText(sender,reply)
 		}
 		
-	}
-
-	res.sendStatus(200)
+	}*/
+	req.send("success")
+	//res.sendStatus(200)
 })
 function generatetoken()
 {
@@ -352,6 +298,9 @@ app.get('/action',function(req,res){
 	res.send(config)
 
 })
-app.listen(app.get('port'),function(){
-	console.log("running: port")
+var server=app.listen(app.get('port'),function(){
+   var host = server.address().address
+   var port = server.address().port
+
+   console.log("Example app listening at http://%s:%s", host, port)
 })
