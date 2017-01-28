@@ -240,16 +240,15 @@ app.post('/webhook/',function(req,res)
 							{
 								if(k==mes.length-1)
 									{  console.log("found.but no value")    
-										 throw new Error('length_Error')}
+										 throw new Error('length_ERROR')}
 								else if( mes[k+1]===" ")
-									{       throw new Error('length_Error')}
+									{       throw new Error('length_ERROR')}
 								else
 								{
 									console.log("enter to change")
 									db.push("/"+sender+"/command/"+cmm,mes[k+1],true)
-									console.log("changed")
-	
-									reply="Now Your Data of "+cmm+" is"+db.get("/"+sender+"/command/"+cmm)
+									console.log("changed")	
+									reply="Now Your Data of "+cmm+" is"+db.getData("/"+sender+"/command/"+cmm)
 									console.log("reply is"+reply)
 									break;
 								}
