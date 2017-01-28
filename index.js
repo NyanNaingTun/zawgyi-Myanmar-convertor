@@ -11,7 +11,7 @@ let hello={}
 app.set('port',(process.env.PORT || 5000))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-const token="EAAMZCuJeEMZBgBAO7tdtSO7ZCGTE8eZCTQTCEzycc3D2qzwDtSqhcqRLVgYQZC4ByZAi4oyJZApwZAfPpuxN7QzEVNmuZBoeKR7HVpTIIFTKWroDjnMfKfJWVaW1kmmLfY26LmDD9AVdMm9YGK8da5btQ1o4oy5ZAZBwXhZBVmjYVc8wXAZDZD"
+const token="EAAUm9eeeiJIBAHdPAUPyVIEioC9rhK0tr9G8QWfRJ4RtD2ZCCpqTZBtAbIiMqFdnzwSLCIg0k4p4HDTXpgv2wGCELFgiA2pP9ZAo5n0snF3m2XRYO0T7lQVwds6ZCDXAspRgjcEoMW2lAfYyX4OMubU5ZCsvCa475iCYaZB2TLsQZDZD"
 app.get('/',function(req,res){
 	res.send("Hi I am a chatbot")
 })
