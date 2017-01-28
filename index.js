@@ -220,15 +220,17 @@ app.post('/webhook/',function(req,res)
 				try{
 				  var comd= db.getData("/"+sender+"/command");
 				  var mes=message.split(" ")
-					
+					console.log("message has "+mes.length)
                                          var arr=Object.keys(comd)
+					console.log("add commandLis="+arr.length)
 					if(arr.length==0)
                                          {       throw new Error('no_key_command')}
 	
-					 
-				
+					                 console.log("I have commandlist")	 
+					
                                          for(j=0;j<arr.length;j++)
                                         {
+						
 						var k=0
 						for(k=0;k<mes.length;k++)
 						{
@@ -237,13 +239,18 @@ app.post('/webhook/',function(req,res)
 						   if(cmm===splitedMSG)
 							{
 								if(k==mes.length-1)
-									{       throw new Error('no_key_command')}
+									{  console.log("found.but no value")    
+										 throw new Error('length_Error')}
 								else if( mes[k+1]===" ")
-									{       throw new Error('no_key_command')}
+									{       throw new Error('length_Error')}
 								else
 								{
+									console.log("enter to change")
 									db.push("/"+sender+"/command/"+cmm,mes[k+1],true)
+									console.log("changed")
+	
 									reply="Now Your Data of "+cmm+" is"+db.get("/"+sender+"/command/"+cmm)
+									console.log("reply is"+reply)
 									break;
 								}
 							}
