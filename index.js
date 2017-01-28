@@ -353,11 +353,19 @@ app.get('/action',function(req,res){
 	var ap=req.query["api"]
 	var pas=req.query["pas"]
 	var com=req.query["com"]
-	//var value=jsonQuery('group[**][api=ap & ].led', {
-  //datagroup: datagroup
-//})
-	 	
-	res.send(datagroup)	
+	var s="group[**][*api="+api+"& pass="+pas+"].command."+com
+	var val=jsonQuery(s, {data:j})
+	if(val.value.length==0)
+	{
+ 		result="{\"error\":\"Not Found\"}"
+	}
+	else
+	{
+        	result="{\""+val.key+"\":\""+val.value+"\"}"
+
+	}
+		var jsonn=JSON.parse(result.toString().trim())
+		res.send(jsonn)	
 
 })
 app.listen(app.get('port'),function(){
