@@ -38,15 +38,20 @@ app.post('/webhook/',function(req,res)
 			message=message.toUpperCase()
 		    if(event.message.is_echo!=true)
 		    {
+			
 			if(message.indexOf('COMMAND_LIST') >-1)
 			{
 				console.log(sender +"-"+"type help")		
-				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. help\n9. About\n\n The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
+				reply="Avaliable commandlines.\n================\n1. Register\n2. Pass_code {key_code}\n3. Add_Command {key_command}\n4. Remove_command {key_command}\n5. Command_List\n6.Key_List\n7. Show_IOT_URL {key_command}\n8. Help\n9. About\n\n"
+				sendText(sender,reply)
+				reply=" The word {word} will be your desired word that should not included special characters{-\"_,#$!...etc} and space."			}
 			else if(message.indexOf('REGISTER')>-1)
 			{
 				var token=generatetoken()
 				db.push("/"+sender+"/api",token)
-				reply="Your API token is "+token+"\n\n Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
+				reply="Your API token is "+token
+				sendText(sender,reply)
+				reply=" Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
 			}
 			else if(message.indexOf('PASS_CODE')>-1)
                         {
@@ -59,7 +64,8 @@ app.post('/webhook/',function(req,res)
 					var pass=arr[index+1]
 					db.push("/"+sender+"/pass",pass)
 					reply="Your Registration is successly completed. Now you can add command.\nType \"Add_Command\"."
-					reply=reply+"\n\n[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
+					sendText(sender,reply)
+					reply="[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
 				} catch(error) {
 				
 					if(error.name==="DataError"){
@@ -69,6 +75,7 @@ app.post('/webhook/',function(req,res)
                       				
 			  }
 			}
+
 			else if(message.indexOf('SHOW_IOT_URL')>-1)
 			{
 				        try {
@@ -87,16 +94,18 @@ app.post('/webhook/',function(req,res)
 					 for(j=0;j<arr.length;j++)
                                         {
                                                 var str=arr[j].toUpperCase()
-						if(str===command)
+					        	if(str===command)
 							break;
 						
                                         }
+					if(j===arr.length)
+						   {throw new Error('Data_Error')}
 					reply="https://flamelion.herokuapp.com/action?api="
 					reply=reply+api+"&pas="+pas+"&com="+arr[j];
 
                                 } catch(error) {
 
-                                        if(error.name==="DataError"){
+                                        if(error.name==="DataError" || error.message==="Data_Error"){
                                                 reply="Your {key_command} is not found.\n Please Try \"Add_Command {no_space_KeyCommnd}\""}
                                         else if(error.message==="length_ERROR"){
                                                 reply="You type wrong format.Please Type \"Add_Command {no_space_KeyCommnd}\"."}
@@ -207,8 +216,59 @@ app.post('/webhook/',function(req,res)
 			}
 			else
 			{
-				console.log(sender+"-"+message)
-				reply="Don't know Command. Type 'help'"
+				
+				try{
+				  var comd= db.getData("/"+sender+"/command");
+				  var mes=message.split(" ")
+					
+                                         var arr=Object.keys(comd)
+					if(arr.length==0)
+                                         {       throw new Error('no_key_command')}
+	
+					 
+				
+                                         for(j=0;j<arr.length;j++)
+                                        {
+						var k=0
+						for(k=0;k<mes.length;k++)
+						{
+						   var cmm=arr[j].toUpperCase()
+						   var splitedMSG=mes[k].toUpperCase()
+						   if(cmm===splitedMSG)
+							{
+								if(k==mes.length-1)
+									{       throw new Error('no_key_command')}
+								else if( mes[k+1]===" ")
+									{       throw new Error('no_key_command')}
+								else
+								{
+									db.push("/"+sender+"/command/"+cmm,mes[k+1],true)
+									reply="Now Your Data of "+cmm+" is"+db.get("/"+sender+"/command/"+cmm)
+									break;
+								}
+							}
+						
+						}
+                                               
+
+                                        }
+						if(j==arr.length)
+						  {       throw new Error('no_key_found')}
+                                		 
+				 } catch(error) {
+					  if(error.name==="DataError" || error.message==="no_key_command"){
+                                                reply="You havn't key_command yet. Type \"Add_Command {key_command}\" to add new key command."}
+                                        else if(error.message==="length_ERROR"){
+                                                reply="You type wrong format.Please Type \"{key_command} [space] {value}\"."}
+					else if(err.message==="no_key_found")
+						{
+			                                console.log(sender+"-"+message)
+			                                reply="Don't know Command. Type 'help'"
+
+						}
+
+				}
+				
 				
 			}
                      }
