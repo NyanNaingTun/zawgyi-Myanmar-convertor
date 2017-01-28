@@ -219,6 +219,7 @@ app.post('/webhook/',function(req,res)
 			{
 				var j=0
 				var k=0
+				var b=false
 				try{
 				  var comd= db.getData("/group/"+sender+"/command");
 				  var mes=message.split(" ")
@@ -252,7 +253,7 @@ app.post('/webhook/',function(req,res)
 									console.log("changed")	
 									reply="Now Your Data of "+cmm+" is "+db.getData("/group/"+sender+"/command/"+cmm)
 								
-									break;
+									b=true
 								}
 							}
 						
@@ -260,7 +261,7 @@ app.post('/webhook/',function(req,res)
                                                
 
                                         }
-						if(j==arr.length && k==mes.length)
+						if(b==false)
 						  {       throw new Error('no_key_found')}
                                 		 
 				 } catch(error) {
