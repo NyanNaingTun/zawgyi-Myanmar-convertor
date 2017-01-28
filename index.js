@@ -1,6 +1,7 @@
 'use strict'
 const JsonDB = require('node-json-db')
-let db = new JsonDB("reg", true, false);
+let jsonQuery = require('json-query')
+let db = new JsonDB("reg", false, false);
 const express=require('express')
 const speakeasy = require('speakeasy');
 const bodyParser=require('body-parser')
@@ -48,7 +49,7 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('REGISTER')>-1)
 			{
 				var token=generatetoken()
-				db.push("/"+sender+"/api",token)
+				db.push("/group/"+sender+"/api",token)
 				reply="Your API token is "+token
 				sendText(sender,reply)
 				reply=" Next step, You must be define your own pass code.\nType \" Pass_code {key_code} \"."
@@ -56,13 +57,13 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('PASS_CODE')>-1)
                         {
                               try {
-				 	var data = db.getData("/"+sender+"/api");
+				 	var data = db.getData("/group/"+sender+"/api");
 					var arr=message.split(" ")
 					var index=searchStringInArray("PASS_CODE",arr)
 					if(index==-1 || index== arr.length-1)
 					{	throw new Error('length_ERROR')}
 					var pass=arr[index+1]
-					db.push("/"+sender+"/pass",pass)
+					db.push("/group/"+sender+"/pass",pass)
 					reply="Your Registration is successly completed. Now you can add command.\nType \"Add_Command\"."
 					sendText(sender,reply)
 					reply="[Your api key =\""+data+"\"\nand\nPass code=\""+pass+"\"]"  
@@ -79,8 +80,8 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('SHOW_IOT_URL')>-1)
 			{
 				        try {
-                                        var api= db.getData("/"+sender+"/api");
-                                         var pas = db.getData("/"+sender+"/pass");
+                                        var api= db.getData("/group/"+sender+"/api");
+                                         var pas = db.getData("/group/"+sender+"/pass");
                                         var arr=message.split(" ")
                                         var index=searchStringInArray("SHOW_IOT_URL",arr)
                                         if(index==-1 || index== arr.length-1)
@@ -88,7 +89,7 @@ app.post('/webhook/',function(req,res)
                                         var command=arr[index+1]
 					command=command.toUpperCase()
 				
-		                         var comd= db.getData("/"+sender+"/command");
+		                         var comd= db.getData("/group/"+sender+"/command");
                 			 var arr=Object.keys(comd)
 					 var j=0
 					 for(j=0;j<arr.length;j++)
@@ -115,7 +116,7 @@ app.post('/webhook/',function(req,res)
 			else if(message.indexOf('REMOVE_COMMAND')>-1)
                         {
                                         try {
-                                        var api= db.getData("/"+sender+"/api");
+                                        var api= db.getData("/group/"+sender+"/api");
                                          var pas = db.getData("/"+sender+"/pass");
                                         var arr=message.split(" ")
                                         var index=searchStringInArray("REMOVE_COMMAND",arr)
@@ -123,7 +124,7 @@ app.post('/webhook/',function(req,res)
                                         {       throw new Error('length_ERROR')}
                                         var command=arr[index+1]
                                         command=command.toUpperCase()
-                                         var comd= db.getData("/"+sender+"/command");
+                                         var comd= db.getData("/group/"+sender+"/command");
                                          var arr=Object.keys(comd)
                                          var j=0
                                          for(j=0;j<arr.length;j++)
@@ -135,7 +136,7 @@ app.post('/webhook/',function(req,res)
                                         }
 					if(j!=arr.length)
 					{
-							db.delete("/"+sender+"/command/"+arr[j]);
+							db.delete("/group/"+sender+"/command/"+arr[j]);
 							reply="Your key_command is deleted. Type \'Key_List\' to see all Key list you created"
 					}
 					else
@@ -157,7 +158,7 @@ app.post('/webhook/',function(req,res)
 			 else if(message.indexOf('KEY_LIST')>-1)
                         {
 				try{
-					var data = db.getData("/"+sender+"/command");
+					var data = db.getData("/group/"+sender+"/command");
 					var arr=Object.keys(data); 
 					for(var j=0;j<arr.length;j++)
 					{
@@ -176,8 +177,8 @@ app.post('/webhook/',function(req,res)
                         {
                               try {
 
-                                        var data = db.getData("/"+sender+"/api");
-					 data = db.getData("/"+sender+"/pass");
+                                        var data = db.getData("/group/"+sender+"/api");
+					 data = db.getData("/group/"+sender+"/pass");
 					var arr=message.split(" ")
                                         var index=searchStringInArray("ADD_COMMAND",arr)
                                         if(index==-1 || index== arr.length-1)
@@ -187,7 +188,7 @@ app.post('/webhook/',function(req,res)
                                 	if(command==="" || command===" ")
 					  {       throw new Error('length_ERROR')}
 					
-				       db.push("/"+sender+"/command/"+command,"",true)
+				       db.push("/group/"+sender+"/command/"+command,"",true)
                                         reply="Your Command  is successfully added. Now, You can send data using \""+command+" {value}\"."
                                 	sendText(sender,reply)   
 				        reply="Request url for your IOT. Type \"Show_IOT_URL "+command+"\"."
@@ -219,7 +220,7 @@ app.post('/webhook/',function(req,res)
 				var j=0
 				var k=0
 				try{
-				  var comd= db.getData("/"+sender+"/command");
+				  var comd= db.getData("/group/"+sender+"/command");
 				  var mes=message.split(" ")
 					console.log("message has "+mes.length)
                                          var arr=Object.keys(comd)
@@ -247,9 +248,9 @@ app.post('/webhook/',function(req,res)
 								else
 								{
 									console.log("enter to change")
-									db.push("/"+sender+"/command/"+cmm,mes[k+1],true)
+									db.push("/group/"+sender+"/command/"+cmm,mes[k+1],true)
 									console.log("changed")	
-									reply="Now Your Data of "+cmm+" is "+db.getData("/"+sender+"/command/"+cmm)
+									reply="Now Your Data of "+cmm+" is "+db.getData("/group/"+sender+"/command/"+cmm)
 								
 									break;
 								}
@@ -264,7 +265,7 @@ app.post('/webhook/',function(req,res)
                                 		 
 				 } catch(error) {
 					  if(error.name==="DataError" || error.message==="no_key_command"){
-                                                reply="You havn't key_command yet. Type \"Add_Command {key_command}\" to add new key command."}
+                                                reply="You havn't key_command or Register yet. Type \"Help\"."}
                                         else if(error.message==="length_ERROR"){
                                                 reply="You type wrong format.Please Type \"{key_command} [space] {value}\"."}
 					else if(error.message==="no_key_found")
@@ -281,12 +282,6 @@ app.post('/webhook/',function(req,res)
                      }
 	             else
 			{reply=event.message.text}
-			try{
-			var data = db.getData("/");
-			console.log(data)
-			}catch(error) {
-			    console.error(error);
-			}
 			sendText(sender,reply)
 		}
 		
@@ -354,9 +349,7 @@ function searchStringInArray (str, strArray) {
     return -1;
 }
 app.get('/action',function(req,res){
-	let fs = require('fs')
-       let config = JSON.parse(fs.readFileSync('c.json', 'utf8'));
-	res.send(config)
+		res.send(db.getData("/group"))	
 
 })
 app.listen(app.get('port'),function(){
