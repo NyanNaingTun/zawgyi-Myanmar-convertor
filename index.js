@@ -354,7 +354,7 @@ app.get('/action',function(req,res){
 	var pas=req.query["pas"]
 	var com=req.query["com"]
 	var s="group[**][*api="+ap+"& pass="+pas+"].command."+com
-	var val=jsonQuery(s, {data:j})
+	var val=jsonQuery(s, {data:datagroup})
 	if(val.value.length==0)
 	{
  		result="{\"error\":\"Not Found\"}"
