@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 const token="EAAUm9eeeiJIBAOaYsTDRilRE8IcSNufScw4Jcp5Mxs6BdqgAD8rC9B5Co1ZCnD5WZA9EhRTPTbYDU3DU6lbXlGNnvy47u5UzmlfbvFh0kuyhZBYmDJWNBbAbLih6cyA0lpylseOROrPNOyvzNZBoZCmQGZCENsZCbFO20TZADmuq8gZDZD"
 app.get('/',function(req,res){
-	res.send("Hi I am a chatbot")
+	res.send("We purpose for IOT learner.Not for Commerical used. Your data cannot stay for a long period.")
 })
 
 app.get('/webhook/',function(req,res)
