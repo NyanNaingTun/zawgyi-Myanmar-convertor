@@ -1,7 +1,7 @@
 'use strict'
 const JsonDB = require('node-json-db')
 let jsonQuery = require('json-query')
-let db = new JsonDB("reg", false, false);
+let db = new JsonDB("reg", true, false);
 const express=require('express')
 const speakeasy = require('speakeasy');
 const bodyParser=require('body-parser')
