@@ -216,7 +216,8 @@ app.post('/webhook/',function(req,res)
 			}
 			else
 			{
-				
+				var j=0
+				var k=0
 				try{
 				  var comd= db.getData("/"+sender+"/command");
 				  var mes=message.split(" ")
@@ -231,7 +232,7 @@ app.post('/webhook/',function(req,res)
                                          for(j=0;j<arr.length;j++)
                                         {
 						
-						var k=0
+					
 						for(k=0;k<mes.length;k++)
 						{
 						   var cmm=arr[j].toUpperCase()
@@ -248,8 +249,8 @@ app.post('/webhook/',function(req,res)
 									console.log("enter to change")
 									db.push("/"+sender+"/command/"+cmm,mes[k+1],true)
 									console.log("changed")	
-									reply="Now Your Data of "+cmm+" is"+db.getData("/"+sender+"/command/"+cmm)
-									console.log("reply is"+reply)
+									reply="Now Your Data of "+cmm+" is "+db.getData("/"+sender+"/command/"+cmm)
+								
 									break;
 								}
 							}
@@ -258,7 +259,7 @@ app.post('/webhook/',function(req,res)
                                                
 
                                         }
-						if(j==arr.length)
+						if(j==arr.length && k==mes.length)
 						  {       throw new Error('no_key_found')}
                                 		 
 				 } catch(error) {
