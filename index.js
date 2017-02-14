@@ -42,14 +42,16 @@ app.post('/webhook/',function(req,res)
             if(event.message.is_echo!=true)
             {
               			let message=event.message.text;
-													console.log(message)
+													console.log("message=="+message+"===message")
                     if(fontcanger.detectFont(message)==="unicode")
                     {
                       reply=fontcanger.convert_Zaw_Gyi(message)
+											console.log("reached)");
                     }
                     else {
                       reply=fontcanger.convert_MM_UNI(message)
-													console.log("reply"+reply)
+												console.log("notreashed");
+													console.log("reply"+reply+"==reply")
                     }
             }
             else {
