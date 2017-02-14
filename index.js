@@ -36,18 +36,20 @@ app.post('/webhook/',function(req,res)
     {
       let event =messaging_events[i]
 			let sender=event.sender.id
-			console.log(sender)
+
         if(event.message && event.message.text)
         {
             if(event.message.is_echo!=true)
             {
               			let message=event.message.text;
+													console.log(message)
                     if(fontcanger.detectFont(message)==="unicode")
                     {
                       reply=fontcanger.convert_Zaw_Gyi(message)
                     }
                     else {
                       reply=fontcanger.convert_MM_UNI(message)
+													console.log("reply"+reply)
                     }
             }
             else {
