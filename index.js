@@ -15,6 +15,9 @@ app.use(bodyParser.json())
 app.get('/',function(req,res){
 	res.send("font Changer")
 })
+app.listen(app.get('port'),function(){
+	console.log(app.get('port')+" port is running")
+})
 app.get('/webhook/',function(req,res)
 {
 	if(req.query['hub.verify_token']==="wojoo")
