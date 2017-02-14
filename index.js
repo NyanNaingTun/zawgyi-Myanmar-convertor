@@ -33,6 +33,7 @@ app.post('/webhook/',function(req,res)
     {
       let event =messaging_events[i]
 			let sender=event.sender.id
+			console.log(sender)
         if(event.message && event.message.text)
         {
             if(event.message.is_echo!=true)
