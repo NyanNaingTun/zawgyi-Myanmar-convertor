@@ -5,7 +5,7 @@ const speakeasy = require('speakeasy')
 const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
-const token=""
+const token="EAABshGWNf9wBADUuTEeE5NOBqKZCIiYyItJHC7PZCZBcS6nz8xXKyfniVl25DoszTZBY48PdNPNT1q02qDOIlavj1qpTZASX3qMEp01DYsZCZAAXT3zksfEY0HArPWP5lnuYMOGp7HvCmUZCwH2IzrxRc7TmQgXlqe1PcWOgwS4ocAZDZD"
 const fontcanger=require('./mm_proc.js')
 
 let reply=""
