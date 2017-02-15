@@ -5,6 +5,7 @@ const speakeasy = require('speakeasy')
 const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
+
 //const token="EAABshGWNf9wBADUuTEeE5NOBqKZCIiYyItJHC7PZCZBcS6nz8xXKyfniVl25DoszTZBY48PdNPNT1q02qDOIlavj1qpTZASX3qMEp01DYsZCZAAXT3zksfEY0HArPWP5lnuYMOGp7HvCmUZCwH2IzrxRc7TmQgXlqe1PcWOgwS4ocAZDZD"
 const token="EAABshGWNf9wBAPTMAZApXxZA6gk8a96VWnW6APp3tnNIt5hKKfnZA254e9TmBM5hdT6DCwfZBROVJx1PSI9BjtahPZBX7GUP1MKXTxZBWCpl9GElZB9DMihfskx00nchTHgWD9NZCYNCvw2za5Gl8KPgv0TE4QpS6ZBKum7ZCj5AMzEAZDZD"
 const fontcanger=require('./mm_proc.js')
@@ -42,22 +43,32 @@ app.post('/webhook/',function(req,res)
             if(event.message.is_echo!=true)
             {
               			let message=event.message.text;
-													console.log("message=="+message+"===message")
                     if(fontcanger.detectFont(message)==="unicode")
                     {
                       reply=fontcanger.convert_Zaw_Gyi(message)
-											console.log("reached)");
+
                     }
                     else {
                       reply=fontcanger.convert_MM_UNI(message)
-												console.log("notreashed");
-													console.log("reply"+reply+"==reply")
+
+
                     }
+										var start=0
+										do{
+										var end=start+640
+											let substring= reply.substring(start,end)
+											sendText(sender,substring)
+											start=end
+										}while(start<=reply.length)
+
             }
             else {
-                	{reply=event.message.text}
+                	{reply=event.message.text
+										  sendText(sender,reply)
+									}
             }
-            sendText(sender,reply)
+
+
         }
   }
   	res.sendStatus(200);
