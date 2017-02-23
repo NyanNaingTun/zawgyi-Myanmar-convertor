@@ -5,8 +5,14 @@ const speakeasy = require('speakeasy')
 const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
-
-const token="EAABshGWNf9wBAPTMAZApXxZA6gk8a96VWnW6APp3tnNIt5hKKfnZA254e9TmBM5hdT6DCwfZBROVJx1PSI9BjtahPZBX7GUP1MKXTxZBWCpl9GElZB9DMihfskx00nchTHgWD9NZCYNCvw2za5Gl8KPgv0TE4QpS6ZBKum7ZCj5AMzEAZDZD"
+/*
+	add page token number in token variable
+*/
+const token=""
+/*
+	add webhook  user token number in webtoken variable
+*/
+const webtoken=""
 const fontcanger=require('./mm_proc.js')
 
 let reply=""
@@ -22,7 +28,7 @@ app.listen(app.get('port'),function(){
 app.get('/webhook/',function(req,res)
 {
 	console.log("abcd")
-	if(req.query['hub.verify_token']==="wojoo")
+	if(req.query['hub.verify_token']===webtoken)
 	{
 		res.send(req.query['hub.challenge'])
 	}
@@ -55,9 +61,11 @@ app.post('/webhook/',function(req,res)
 										var ii=1
 										var start=0
 										do{
-										var end="["+ii+"]>>"+start+625
-										i++
+										var end=+start+625
+
 											var substring= reply.substring(start,end)
+											substring="["+ii+"]>>"+substring
+											ii=ii+1
 											sendText(sender,substring)
 											start=end
 										}while(start<=reply.length)
