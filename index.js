@@ -52,10 +52,10 @@ app.post('/webhook/',function(req,res)
 
 
                     }
-										var i=1
+										var ii=1
 										var start=0
 										do{
-										var end="["+i+"]>>"+start+625
+										var end="["+ii+"]>>"+start+625
 										i++
 											var substring= reply.substring(start,end)
 											sendText(sender,substring)
