@@ -827,6 +827,12 @@ var uni_mm_proc=(function(){
       }
       return txt;
     };
+    function getUnicodeWordLength(content)
+    {
+      if(detectFont(content)!="unicode")
+        content=convert_MM_UNI(content)
+      return content.match(/([က-ဪ](?!်|္|့်)|[ဿ-၏]|[!-~]|\s)/g).length;
+    }
 
     function detectFont(content, def){
 
@@ -872,7 +878,8 @@ var uni_mm_proc=(function(){
     var uni_mm_proc = {
       detectFont: detectFont,
       convert_Zaw_Gyi: convert_Zaw_Gyi,
-      convert_MM_UNI:convert_MM_UNI
+      convert_MM_UNI:convert_MM_UNI,
+      getUnicodeWordLength:getUnicodeWordLength
 
     };
 
