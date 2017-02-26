@@ -5,6 +5,7 @@ const speakeasy = require('speakeasy')
 const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
+
 /*
 	add page token number in token variable
 */
@@ -58,6 +59,9 @@ app.post('/webhook/',function(req,res)
 
 
                     }
+										var strlenght=fontcanger.getUnicodeWordLength(message)
+										var totalength="Total Word length="+strlength+"\n"
+										reply=totalength+reply
 										var ii=1
 										var start=0
 										do{
