@@ -6,15 +6,19 @@ const bodyParser=require('body-parser')
 const request=require('request')
 const app=express()
 
+
 /*
 	add page token number in token variable
 */
+
 const token=""
 /*
 	add webhook  user token number in webtoken variable
 */
-const webtoken=""
+
+
 const fontcanger=require('./mm_proc.js')
+
 
 let reply=""
 app.set('port',(process.env.PORT || 5000))
@@ -28,16 +32,20 @@ app.listen(app.get('port'),function(){
 })
 app.get('/webhook/',function(req,res)
 {
-	console.log("abcd")
-	if(req.query['hub.verify_token']===webtoken)
+
+	console.log(req.query['hub.verify_token'])
+	if(req.query['hub.verify_token']==="flamelion")
 	{
+		console.log("success")
 		res.send(req.query['hub.challenge'])
 	}
+	console.log("fail")
 	res.send("Wrong Token")
 })
 app.post('/webhook/',function(req,res)
 {
-	console.log("hello")
+
+
     let messaging_events=req.body.entry[0].messaging
     for(let i=0;i<messaging_events.length;i++)
     {
@@ -49,30 +57,36 @@ app.post('/webhook/',function(req,res)
             if(event.message.is_echo!=true)
             {
               			let message=event.message.text;
-                    if(fontcanger.detectFont(message)==="unicode")
+
+										if(message.startsWith("#ws#"))
+										{
+												console.log("enter")
+												var arr=fontcanger.splitUnicodeWord(message)
+													reply=arr.toString()
+										}
+                    else if(fontcanger.detectFont(message)==="unicode")
                     {
                       reply=fontcanger.convert_Zaw_Gyi(message)
 
                     }
+
                     else {
                       reply=fontcanger.convert_MM_UNI(message)
-
-
                     }
+										console.log(message)
 										var strlenght=fontcanger.getUnicodeWordLength(message)
-										var totalength="Total Word length="+strlength+"\n"
+										var totalength="Total Word length="+strlenght+"\n"
 										reply=totalength+reply
 										var ii=1
 										var start=0
-										do{
-										var end=+start+625
-
-											var substring= reply.substring(start,end)
-											substring="["+ii+"]>>"+substring
-											ii=ii+1
-											sendText(sender,substring)
-											start=end
-										}while(start<=reply.length)
+											do{
+													var end=+start+625
+													var substring= reply.substring(start,end)
+													substring="["+ii+"]>>"+substring
+													ii=ii+1
+													sendText(sender,substring)
+													start=end
+												}while(start<=reply.length)
 
             }
             else {

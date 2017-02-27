@@ -831,9 +831,28 @@ var uni_mm_proc=(function(){
     {
       if(detectFont(content)!="unicode")
         content=convert_MM_UNI(content)
+
       return content.match(/([က-ဪ](?!်|္|့်)|[ဿ-၏]|[!-~]|\s)/g).length;
     }
+    function splitUnicodeWord(content)
+    {
+      if(detectFont(content)!="unicode")
+        content=convert_MM_UNI(content)
+      var patt =/([က-ဪ](?!်|္|့်)|[ဿ-၏]|[!-~]|\s)/g
+      var match
+      var lastmatch=0
+      var wordarray=[]
+      while(match=patt.exec(content))
+      {
+            console.log(content.length+" "+lastmatch+" "+match.index)
+          if(match.index!=0)
+             wordarray.push(content.substring(lastmatch,match.index))
+		       lastmatch=match.index
+      }
+      wordarray.push(content.substring(lastmatch,content.length))
 
+      return wordarray
+    }
     function detectFont(content, def){
 
       if (!content)
@@ -879,7 +898,8 @@ var uni_mm_proc=(function(){
       detectFont: detectFont,
       convert_Zaw_Gyi: convert_Zaw_Gyi,
       convert_MM_UNI:convert_MM_UNI,
-      getUnicodeWordLength:getUnicodeWordLength
+      getUnicodeWordLength:getUnicodeWordLength,
+      splitUnicodeWord:splitUnicodeWord
 
     };
 
