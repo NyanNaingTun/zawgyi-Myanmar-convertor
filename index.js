@@ -60,9 +60,20 @@ app.post('/webhook/',function(req,res)
 
 										if(message.startsWith("#ws#"))
 										{
-												console.log("enter")
+												message = message.replace('#ws#', '');
+												if(message==="")
+													{
+													  	sendText(sender,"message empty")
+															res.sendStatus(200);
+															break;
+													}
 												var arr=fontcanger.splitUnicodeWord(message)
+													arr = arr.map(function(item) { return item == ' ' ? '[space]' : item; });
+													arr = arr.map(function(item) { return item == '\t' ? '[tab]' : item; });
+													arr = arr.map(function(item) { return item == '\n' ? '[enter]' : item; });
+													arr = arr.map(function(item) { return item == '\r' ? '[CR]' : item; });
 													reply=arr.toString()
+
 										}
                     else if(fontcanger.detectFont(message)==="unicode")
                     {
@@ -73,10 +84,11 @@ app.post('/webhook/',function(req,res)
                     else {
                       reply=fontcanger.convert_MM_UNI(message)
                     }
-										console.log(message)
+
 										var strlenght=fontcanger.getUnicodeWordLength(message)
-										var totalength="Total Word length="+strlenght+"\n"
-										reply=totalength+reply
+										var totalength="Total Character length="+strlenght+"\n"
+
+										sendText(sender,totalength)
 										var ii=1
 										var start=0
 											do{

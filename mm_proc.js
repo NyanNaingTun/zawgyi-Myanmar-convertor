@@ -856,7 +856,7 @@ var uni_mm_proc=(function(){
     function detectFont(content, def){
 
       if (!content)
-        throw new Error('Content must be specified on knayi.fontDetect');
+        throw new Error('Content must be specified');
 
       if (content === '')
         return content;
